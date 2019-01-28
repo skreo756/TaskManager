@@ -1,51 +1,25 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="fill_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="2dp"
-        android:gravity="start"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Title"
-            android:textColor="@color/colorAccent"
-            android:textSize="32sp" />
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/eventCreationName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="My task"
-                android:singleLine="true"
-                android:textSize="22sp" />
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
+        android:text="Title"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp" />
+    <EditText
+        android:id="@+id/eventCreationName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-">
+        android:layout_height="wrap_content"
+        android:hint="My task"
+        android:singleLine="true"
+        android:textSize="22sp" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="97dp"
             android:gravity="start"
             android:orientation="horizontal">
 
@@ -57,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|center_horizontal"
                 android:text="SELECT TIME" />
+
             <EditText
                 android:id="@+id/in_time"
                 android:layout_width="0px"
@@ -66,9 +41,6 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-
             android:gravity="start"
             android:orientation="horizontal">
 
@@ -87,19 +59,33 @@
                 android:layout_height="wrap_content" />
 
         </LinearLayout>
-    </LinearLayout>
-
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="216dp"
         android:gravity="start"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pévenir avant :"/>
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true"
+            android:entries="@array/array_name">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -114,17 +100,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Sport"
             android:textColor="#FFFFFF" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="313dp"
-        android:gravity="start"
-        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
@@ -140,17 +116,8 @@
             android:hint="Training"
             android:singleLine="true"
             android:textSize="22sp" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="426dp"
-        android:gravity="center"
-        android:orientation="vertical">
+
 
         <Button
             android:id="@+id/eventCreationValidate"
@@ -159,7 +126,6 @@
             android:gravity="center_vertical|center_horizontal"
             android:text="Create"
             android:textColor="#FFFFFF" />
-    </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

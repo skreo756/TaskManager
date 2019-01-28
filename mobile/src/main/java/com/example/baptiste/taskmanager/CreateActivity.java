@@ -164,15 +164,11 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
             SimpleDateFormat dff = new SimpleDateFormat("HH:mm");
             try {
                 d = df.parse(start);
-                dd = df.parse(time_);
+                dd = dff.parse(time_);
             }
             catch (ParseException e) {
                 e.printStackTrace();
             }
-
-
-
-
 
 
             Calendar c = new GregorianCalendar();
@@ -183,14 +179,18 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
             c.set(Calendar.HOUR_OF_DAY, c2.get(Calendar.HOUR_OF_DAY));
             c.set(Calendar.MINUTE, c2.get(Calendar.MINUTE));
-            long timeTrigger = c.getTimeInMillis();
 
             Toast.makeText(getApplicationContext(), c.toString(), Toast.LENGTH_SHORT).show();
+            Log.w(TAG, c.toString() );
+          //  c.getTimeInMillis();
 
-          //  triggerAlarmManager(timeTrigger);
+                    c.add(Calendar.HOUR_OF_DAY, -1);
+            long timeTrigger = c.getTimeInMillis();
 
-          //  Intent notificationIntent = new Intent(this, MainActivity.class);
-           // startActivity(notificationIntent);
+                    triggerAlarmManager(c.getTimeInMillis());
+
+            Intent notificationIntent = new Intent(this, MainActivity.class);
+            startActivity(notificationIntent);
 
         }
     }
