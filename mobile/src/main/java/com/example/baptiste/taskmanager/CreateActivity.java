@@ -157,29 +157,35 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
             Date d = new Date();
             Date dd = new Date();
-            Date date_ = new Date();
-            Date _time_ = new Date();
+
+
 
             SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
             SimpleDateFormat dff = new SimpleDateFormat("HH:mm");
             try {
                 d = df.parse(start);
-             //   date_ = new SimpleDateFormat("dd-MM-yyy").format(d);
-
                 dd = df.parse(time_);
             }
             catch (ParseException e) {
                 e.printStackTrace();
             }
 
-          //  d = d + dd.getTime();
 
-            Toast.makeText(getApplicationContext(), time_ , Toast.LENGTH_SHORT).show();
+
+
 
 
             Calendar c = new GregorianCalendar();
+            Calendar c2 = new GregorianCalendar();
+
+            c2.setTime(dd);
             c.setTime(d);
+
+            c.set(Calendar.HOUR_OF_DAY, c2.get(Calendar.HOUR_OF_DAY));
+            c.set(Calendar.MINUTE, c2.get(Calendar.MINUTE));
             long timeTrigger = c.getTimeInMillis();
+
+            Toast.makeText(getApplicationContext(), c.toString(), Toast.LENGTH_SHORT).show();
 
           //  triggerAlarmManager(timeTrigger);
 
@@ -204,35 +210,7 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
     }
 
 
-    /*
-    private void showNotification(String title, String description, String type, String datetime_) {
 
-        Calendar calendar = Calendar.getInstance();
-     //   calendar.setTimeInMillis(calendar.getTimeInMillis()+ 60000);
-
-
-       NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this,CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
-                .setContentTitle(title)
-                .setWhen(System.currentTimeMillis() + 600000000)
-                .setContentText(description)
-                .setShowWhen(true)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
-        mNotificationManager.notify(notificationId++, mBuilder.build());
-
-        Intent notificationIntent = new Intent(this, MainActivity.class);
-        startActivity(notificationIntent);
-
-
-        calendar.add(Calendar.SECOND, 10);
-
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-
-        Toast.makeText(this, "Alarm Set for " + calendar.get(Calendar.DAY_OF_MONTH) +"/"+calendar.get(Calendar.MONTH) +"/"+calendar.get(Calendar.YEAR) +" "+ calendar.get(Calendar.HOUR_OF_DAY) +":"+calendar.get(Calendar.MINUTE), Toast.LENGTH_SHORT).show();
-    } */
 
     public void triggerAlarmManager(long alarmTriggerTime) {
 
