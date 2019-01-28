@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="140dp"
             android:ems="10"
             android:inputType="text" >
         </EditText>
@@ -28,7 +28,9 @@
             android:layout_alignBottom="@+id/editTextTitle"
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Title"/>
+            android:text="Titre"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/editTextStart"
@@ -37,7 +39,7 @@
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/editTextTitle"
             android:layout_marginTop="20dp"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="140dp"
             android:ems="10"
             android:inputType="text" >
         </EditText>
@@ -49,7 +51,9 @@
             android:layout_alignBottom="@+id/editTextStart"
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Start time"/>
+            android:text="Date de début"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/editTextType"
@@ -57,7 +61,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/editTextStart"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="140dp"
             android:layout_marginTop="20dp"
 
             android:ems="10"
@@ -71,7 +75,9 @@
             android:layout_alignBottom="@+id/editTextType"
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Type"/>
+            android:text="Type"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <EditText
             android:id="@+id/editTextDesc"
@@ -79,7 +85,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/editTextType"
-            android:layout_marginLeft="120dp"
+            android:layout_marginLeft="140dp"
             android:layout_marginTop="20dp"
 
             android:ems="10"
@@ -93,7 +99,9 @@
             android:layout_alignBottom="@+id/editTextDesc"
             android:layout_alignParentLeft="true"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Description"/>
+            android:text="Description"
+            android:textColor="#000000"
+            android:textStyle="bold"/>
 
         <Button
             android:id="@+id/button1"
@@ -107,6 +115,7 @@
             android:layout_marginTop="307dp"
             android:layout_marginEnd="151dp"
             android:layout_marginBottom="0dp"
+            android:background="#8BD7EC"
             android:text="OK" />
 
 

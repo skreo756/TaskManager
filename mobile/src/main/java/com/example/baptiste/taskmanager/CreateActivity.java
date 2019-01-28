@@ -42,12 +42,13 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
     private static final int ALARM_REQUEST_CODE = 133;
 
-    private PendingIntent pendingIntent;
+    private PendingIntent pendingIntent, i;
     private static final String REPLY_ACTION = "REPLY_ACTION";
     private static final String KEY_NOTIFICATION_ID = "KEY_NOTIFICATION_ID";
     private static final String KEY_REPLY = "KEY_REPLY";
     private static final String CHANNEL_ID = "CHANNEL_ID";
     private int notificationId = 1500;
+    private Intent in;
 
 
     Button btnDatePicker, btnTimePicker, btnAdd;
@@ -64,8 +65,11 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
         setContentView(R.layout.activity_create);
         createNotificationChannel();
 
+        in = new Intent(this, MainActivity.class);
         Intent alarmIntent = new Intent(CreateActivity.this, AlarmReceiver.class);
         pendingIntent = PendingIntent.getBroadcast(CreateActivity.this, ALARM_REQUEST_CODE, alarmIntent, 0);
+        i = PendingIntent.getActivity(this, ALARM_REQUEST_CODE, in, 0);
+
 
         Log.d(TAG,"salut");
 
@@ -177,9 +181,6 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
                 e.printStackTrace();
             }
 
-
-
-
             Calendar c = new GregorianCalendar();
             Calendar c2 = new GregorianCalendar();
 
@@ -203,11 +204,16 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
             mn = - mn;
 
-            
             c.add(Calendar.MINUTE, mn);
-            long timeTrigger = c.getTimeInMillis();
 
-                    triggerAlarmManager(c.getTimeInMillis());
+            Notification.Builder builder = new Notification.Builder(this);
+            builder.setContentTitle(title);
+            builder.setContentText(description);
+            builder.setContentIntent(i);
+            builder.setSmallIcon(R.drawable.notification_icon);
+
+
+            triggerAlarmManager(builder.build(), c.getTimeInMillis());
 
             Intent notificationIntent = new Intent(this, MainActivity.class);
             startActivity(notificationIntent);
@@ -232,49 +238,21 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
 
 
-    public void triggerAlarmManager(long alarmTriggerTime) {
-
-        Calendar cal = Calendar.getInstance();
+    public void triggerAlarmManager(Notification notification, long alarmTriggerTime) {
 
 
-     //   cal.add(Calendar.SECOND, alarmTriggerTime);
+        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
+        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1);
+        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, notification);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);//get instance of alarm manager
         manager.set(AlarmManager.RTC_WAKEUP, alarmTriggerTime, pendingIntent);//set alarm manager with entered timer by converting into milliseconds
 
         Toast.makeText(this, "Alarm Set for " + alarmTriggerTime + " seconds.", Toast.LENGTH_SHORT).show();
+
+
     }
-
-
-    public void stopAlarmManager() {
-
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        manager.cancel(pendingIntent);//cancel the alarm manager of the pending intent
-
-
-
-        stopService(new Intent(CreateActivity.this, AlarmSoundService.class));
-
-
-        NotificationManager notificationManager = (NotificationManager) this
-                .getSystemService(Context.NOTIFICATION_SERVICE);
-        notificationManager.cancel(AlarmNotificationService.NOTIFICATION_ID);
-
-        Toast.makeText(this, "Alarm Canceled/Stop by User.", Toast.LENGTH_SHORT).show();
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
