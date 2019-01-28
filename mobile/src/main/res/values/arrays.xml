@@ -9,4 +9,13 @@
         <item>50</item>
         <item>60</item>
         </string-array>
+
+
+    <string-array name="array_type">
+        <item>Sport</item>
+        <item>Rendez-vous</item>
+        <item>Soirée</item>
+        <item>Anniversaire</item>
+        <item>Divers</item>
+    </string-array>
 </resources>

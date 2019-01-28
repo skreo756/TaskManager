@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -50,7 +51,8 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
 
     Button btnDatePicker, btnTimePicker, btnAdd;
-    EditText txtDate, txtTime, Title, Description, Type;
+    EditText txtDate, txtTime, Title, Description;
+    Spinner timeBefore, Type;
     private int mYear, mMonth, mDay, mHour, mMinute;
     private TaskDbHelper mHelper;
 
@@ -75,7 +77,8 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
         txtTime = (EditText) findViewById(R.id.in_time);
         Title = (EditText) findViewById(R.id.eventCreationName);
         Description = (EditText) findViewById(R.id.eventCreationDescription);
-        Type = (EditText) findViewById(R.id.eventCreationType);
+        timeBefore = (Spinner) findViewById(R.id.timeBefore);
+        Type = (Spinner) findViewById(R.id.type);
 
 
 
@@ -140,9 +143,13 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
             Log.d(TAG, "FZEFHZEUIHEZUFHZEHFEUZFHUFEHIFZHU");
 
 
+
+
+
             String title = String.valueOf(Title.getText());
             String description = String.valueOf(Description.getText());
-            String type = String.valueOf(Type.getText());
+            String type = Type.getSelectedItem().toString();
+            String before = timeBefore.getSelectedItem().toString();
             String start = String.valueOf(txtDate.getText());
             String time_ = String.valueOf(txtTime.getText());
             String datetime_ = start + "  "+ time_;
@@ -171,6 +178,8 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
             }
 
 
+
+
             Calendar c = new GregorianCalendar();
             Calendar c2 = new GregorianCalendar();
 
@@ -182,9 +191,20 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
             Toast.makeText(getApplicationContext(), c.toString(), Toast.LENGTH_SHORT).show();
             Log.w(TAG, c.toString() );
-          //  c.getTimeInMillis();
 
-                    c.add(Calendar.HOUR_OF_DAY, -1);
+
+            int mn = 0;
+
+            try {
+                mn = Integer.parseInt(before);
+            } catch(NumberFormatException nfe) {
+                System.out.println("Could not parse " + nfe);
+            }
+
+            mn = - mn;
+
+            
+            c.add(Calendar.MINUTE, mn);
             long timeTrigger = c.getTimeInMillis();
 
                     triggerAlarmManager(c.getTimeInMillis());
