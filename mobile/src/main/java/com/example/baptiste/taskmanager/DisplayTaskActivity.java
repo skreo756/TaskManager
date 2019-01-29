@@ -45,7 +45,7 @@ public class DisplayTaskActivity extends Activity {
 
 
             if (Value > 0) {
-                Log.w(TAG,Value+"");
+                Log.w(TAG, Value + "");
                 Cursor rs = mHelper.getData(Value);
                 id_To_Update = Value;
                 rs.moveToFirst();
@@ -59,23 +59,23 @@ public class DisplayTaskActivity extends Activity {
                     rs.close();
                 }
 
-                title.setText((CharSequence)title_);
+                title.setText((CharSequence) title_);
                 title.setFocusable(false);
                 title.setClickable(false);
 
-                start.setText((CharSequence)start_);
+                start.setText((CharSequence) start_);
                 start.setFocusable(false);
                 start.setClickable(false);
 
-                Type.setText((CharSequence)type_);
+                Type.setText((CharSequence) type_);
                 Type.setFocusable(false);
                 Type.setClickable(false);
 
-                Desc.setText((CharSequence)desc_);
+                Desc.setText((CharSequence) desc_);
                 Desc.setFocusable(false);
                 Desc.setClickable(false);
 
-                Button b = (Button)findViewById(R.id.button1);
+                Button b = (Button) findViewById(R.id.button1);
                 b.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -89,23 +89,23 @@ public class DisplayTaskActivity extends Activity {
     }
 
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         Bundle extras = getIntent().getExtras();
 
-        if(extras !=null) {
+        if (extras != null) {
             int Value = extras.getInt("id");
-            if(Value>0){
-                getMenuInflater().inflate(R.menu.display_task, menu);
-            } else{
+            if (Value > 0) {
                 getMenuInflater().inflate(R.menu.main_menu, menu);
+
             }
+
         }
         return true;
     }
-
-
-
 }
+
+
+
+

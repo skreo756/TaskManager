@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
 
             startActivity(intent);
             return true;
+
+            case R.id.sport:
+                Intent SportIntent = new Intent(getApplicationContext(), SportActivity.class);
+                startActivity(SportIntent);
+
             default:
                 return super.onOptionsItemSelected(item);
 

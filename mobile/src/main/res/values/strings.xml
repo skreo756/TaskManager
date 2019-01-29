@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">TaskManager</string>
     <string name="title_activity_create">CreateActivity</string>
-    <string name="snooze">reporter</string>
+    <string name="snooze">reporter de 10mn</string>
+    <string name="title_activity_sport">SportActivity</string>
+    <string name="sport">sport</string>
 </resources>

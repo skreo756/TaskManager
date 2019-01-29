@@ -64,7 +64,6 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-        createNotificationChannel();
 
         in = new Intent(this, MainActivity.class);
 
@@ -149,31 +148,59 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
           //  datetime_ = datetime_.replace("-", "/");
 
+            Date d = new Date();
+            Date dd = new Date();
+
+            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+            SimpleDateFormat dff = new SimpleDateFormat("HH:mm");
+            try {
+                d = df.parse(start);
+                dd = dff.parse(time_);
+            }
+            catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+            Calendar c = new GregorianCalendar();
+            Calendar c2 = new GregorianCalendar();
+            Calendar c3 = new GregorianCalendar();
+
+            c2.setTime(dd);
+            c.setTime(d);
+            c3.setTime(d);
+
+
+            c.set(Calendar.HOUR_OF_DAY, c2.get(Calendar.HOUR_OF_DAY));
+            c.set(Calendar.MINUTE, c2.get(Calendar.MINUTE));
+
+            c3.set(Calendar.HOUR_OF_DAY, c2.get(Calendar.HOUR_OF_DAY));
+            c3.set(Calendar.MINUTE, c2.get(Calendar.MINUTE));
+
+            int mn = 0;
+
+            try {
+                mn = Integer.parseInt(before);
+            } catch(NumberFormatException nfe) {
+                System.out.println("Could not parse " + nfe);
+            }
+
+            mn = - mn;
+
+            c.add(Calendar.MINUTE, mn);
 
 
             long insertId = mHelper.InsertTask(title, datetime_, type, description);
 
             Task t = mHelper.getTaskById(insertId);
 
-            t.createNotification(before, start, time_);
+            t.createNotification(c);
 
 
         }
     }
 
 
-    private void createNotificationChannel() {
-        // Créer le NotificationChannel, seulement pour API 26+
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = "Notification channel name";
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
-            channel.setDescription("Notification channel description");
-            // Enregister le canal sur le système : attention de ne plus rien modifier après
-            NotificationManager notificationManager = getSystemService(NotificationManager.class);
-            Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
-        }
-    }
+
 
 
 
