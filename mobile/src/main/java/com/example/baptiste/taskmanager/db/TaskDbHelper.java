@@ -5,6 +5,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
+
+import com.example.baptiste.taskmanager.Task;
 
 import java.util.ArrayList;
 
@@ -18,10 +21,13 @@ public class TaskDbHelper extends SQLiteOpenHelper {
     public static final String TASK_TYPE = "type";
     public static final String TASK_DESC = "description";
     public static final int DB_VERSION = 1;
+    public static final String TAG = "DBBBBBBB";
+    public Context context = null;
 
     public TaskDbHelper(Context context) {
 
         super(context, DB_NAME, null, 1);
+        this.context = context;
     }
 
     @Override
@@ -42,7 +48,7 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean InsertTask(String title, String start, String type, String description) {
+    public long InsertTask(String title, String start, String type, String description) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
@@ -50,8 +56,8 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         contentValues.put("type", type);
         contentValues.put("description", description);
         contentValues.put("start", start);
-        db.insert("task", null, contentValues);
-        return true;
+        long idddd = db.insert("task", null, contentValues);
+        return idddd;
     }
 
 
@@ -75,5 +81,19 @@ public class TaskDbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from task where id ="+id+"", null);
         return res;
+    }
+
+
+    public Task getTaskById(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from task where id ="+id+"", null);
+        res.moveToFirst();
+        String title = res.getString(res.getColumnIndex(TASK_TITLE));
+        String type = res.getString(res.getColumnIndex(TASK_TYPE));
+        String dateDebut = res.getString(res.getColumnIndex(TASK_DATE));
+        String description = res.getString(res.getColumnIndex(TASK_DESC));
+
+        return new Task(title, type, description, dateDebut, id, context);
+
     }
 }

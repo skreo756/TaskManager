@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private TaskDbHelper mHelper;
     private ListView mTaskListView;
     private ArrayAdapter<String> mAdapter;
+    public static final String ID_DISPLAY_TASK = "DISPLAY_TASK";
 
     TextView title;
     TextView start;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 dataBundle.putInt("id", id_To_Search);
 
                 Intent intent = new Intent(getApplicationContext(), DisplayTaskActivity.class);
-                intent.putExtras(dataBundle);
+                intent.putExtra(ID_DISPLAY_TASK, id_To_Search);
                 startActivity(intent);
             }
         });

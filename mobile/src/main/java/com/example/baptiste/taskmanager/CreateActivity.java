@@ -36,13 +36,14 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
 
+import static android.app.Notification.EXTRA_NOTIFICATION_ID;
 
 
 public class CreateActivity extends AppCompatActivity implements  View.OnClickListener {
 
     private static final int ALARM_REQUEST_CODE = 133;
 
-    private PendingIntent pendingIntent, i;
+
     private static final String REPLY_ACTION = "REPLY_ACTION";
     private static final String KEY_NOTIFICATION_ID = "KEY_NOTIFICATION_ID";
     private static final String KEY_REPLY = "KEY_REPLY";
@@ -54,7 +55,7 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
     Button btnDatePicker, btnTimePicker, btnAdd;
     EditText txtDate, txtTime, Title, Description;
     Spinner timeBefore, Type;
-    private int mYear, mMonth, mDay, mHour, mMinute;
+    private int mYear, mMonth, mDay;
     private TaskDbHelper mHelper;
 
     private String TAG = "CreateActivity";
@@ -66,14 +67,8 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
         createNotificationChannel();
 
         in = new Intent(this, MainActivity.class);
-        Intent alarmIntent = new Intent(CreateActivity.this, AlarmReceiver.class);
-        pendingIntent = PendingIntent.getBroadcast(CreateActivity.this, ALARM_REQUEST_CODE, alarmIntent, 0);
-        i = PendingIntent.getActivity(this, ALARM_REQUEST_CODE, in, 0);
 
 
-        Log.d(TAG,"salut");
-
-       // buttonType = (Button) findViewById(R.id.eventCreationType);
         btnTimePicker = (Button) findViewById(R.id.btn_Time);
         btnDatePicker = (Button) findViewById(R.id.btn_date);
         btnAdd = (Button) findViewById(R.id.eventCreationValidate);
@@ -144,12 +139,6 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
 
         if (v == btnAdd) {
-            Log.d(TAG, "FZEFHZEUIHEZUFHZEHFEUZFHUFEHIFZHU");
-
-
-
-
-
             String title = String.valueOf(Title.getText());
             String description = String.valueOf(Description.getText());
             String type = Type.getSelectedItem().toString();
@@ -160,63 +149,14 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
           //  datetime_ = datetime_.replace("-", "/");
 
-            if (mHelper.InsertTask(title, datetime_, type, description)) {
-                Toast.makeText(getApplicationContext(), "done", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "not done", Toast.LENGTH_SHORT).show();
-            }
-
-            Date d = new Date();
-            Date dd = new Date();
 
 
+            long insertId = mHelper.InsertTask(title, datetime_, type, description);
 
-            SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-            SimpleDateFormat dff = new SimpleDateFormat("HH:mm");
-            try {
-                d = df.parse(start);
-                dd = dff.parse(time_);
-            }
-            catch (ParseException e) {
-                e.printStackTrace();
-            }
+            Task t = mHelper.getTaskById(insertId);
 
-            Calendar c = new GregorianCalendar();
-            Calendar c2 = new GregorianCalendar();
+            t.createNotification(before, start, time_);
 
-            c2.setTime(dd);
-            c.setTime(d);
-
-            c.set(Calendar.HOUR_OF_DAY, c2.get(Calendar.HOUR_OF_DAY));
-            c.set(Calendar.MINUTE, c2.get(Calendar.MINUTE));
-
-            Toast.makeText(getApplicationContext(), c.toString(), Toast.LENGTH_SHORT).show();
-            Log.w(TAG, c.toString() );
-
-
-            int mn = 0;
-
-            try {
-                mn = Integer.parseInt(before);
-            } catch(NumberFormatException nfe) {
-                System.out.println("Could not parse " + nfe);
-            }
-
-            mn = - mn;
-
-            c.add(Calendar.MINUTE, mn);
-
-            Notification.Builder builder = new Notification.Builder(this);
-            builder.setContentTitle(title);
-            builder.setContentText(description);
-            builder.setContentIntent(i);
-            builder.setSmallIcon(R.drawable.notification_icon);
-
-
-            triggerAlarmManager(builder.build(), c.getTimeInMillis());
-
-            Intent notificationIntent = new Intent(this, MainActivity.class);
-            startActivity(notificationIntent);
 
         }
     }
@@ -238,21 +178,6 @@ public class CreateActivity extends AppCompatActivity implements  View.OnClickLi
 
 
 
-    public void triggerAlarmManager(Notification notification, long alarmTriggerTime) {
 
-
-        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-
-        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);//get instance of alarm manager
-        manager.set(AlarmManager.RTC_WAKEUP, alarmTriggerTime, pendingIntent);//set alarm manager with entered timer by converting into milliseconds
-
-        Toast.makeText(this, "Alarm Set for " + alarmTriggerTime + " seconds.", Toast.LENGTH_SHORT).show();
-
-
-    }
 
 }

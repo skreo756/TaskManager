@@ -38,7 +38,7 @@ public class DisplayTaskActivity extends Activity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int Value = extras.getInt("id");
+            int Value = extras.getInt(MainActivity.ID_DISPLAY_TASK);
 
 
             if (Value > 0) {
@@ -54,8 +54,6 @@ public class DisplayTaskActivity extends Activity {
                 if (!rs.isClosed()) {
                     rs.close();
                 }
-
-
 
                 title.setText((CharSequence)title_);
                 title.setFocusable(false);
