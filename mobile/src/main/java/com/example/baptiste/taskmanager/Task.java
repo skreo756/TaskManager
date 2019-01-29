@@ -85,7 +85,7 @@ public class Task {
         builder.setContentTitle(title);
         builder.setContentText(description);
         Intent i = new Intent(context, DisplayTaskActivity.class);
-        i.putExtra(MainActivity.ID_DISPLAY_TASK, id);
+        i.putExtra(MainActivity.ID_DISPLAY_TASK,  Integer.parseInt(id+""));
       //  Log.w(TAG, id.toString());
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 1, i, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(pendingIntent);
