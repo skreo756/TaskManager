@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+tools:context=".MainActivity">
 
-
-
+    <item
+    android:id="@+id/speech"
+    android:orderInCategory="500"
+    android:icon="@drawable/ic_mic_black"
+    app:showAsAction="ifRoom"
+    android:title="speech" />
 
 
     <item android:id="@+id/item1"
-
         android:title="Ajouter une tache" >
     </item>
 
     <item android:id="@+id/sport"
-
         android:title="Commencer une activité sportive">
-
     </item>
-
-
-
 </menu>
