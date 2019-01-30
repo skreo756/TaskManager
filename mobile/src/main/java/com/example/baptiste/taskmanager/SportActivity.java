@@ -37,6 +37,8 @@ public class SportActivity extends AppCompatActivity implements SensorEventListe
         simpleStepDetector = new StepDetector();
         simpleStepDetector.registerListener(this);
 
+
+
          TvSteps = (TextView) findViewById(R.id.tv_steps);
         Button BtnStart = (Button) findViewById(R.id.btn_start);
         Button BtnStop = (Button) findViewById(R.id.btn_stop);

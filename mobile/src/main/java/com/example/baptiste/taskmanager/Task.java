@@ -59,8 +59,8 @@ public class Task {
         NotificationCompat.Action action = new NotificationCompat.Action.Builder(R.drawable.ic_snooze, context.getString(R.string.snooze), snoozePendingIntent).build();
 
         if (type.equals("Sport")) {
-            Intent SportIntent = new Intent(context, SportActivity.class);
-            PendingIntent sportPendingIntent = PendingIntent.getActivity(context, 1, SportIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            Intent SportIntent = new Intent(context, SportReceiver.class);
+            PendingIntent sportPendingIntent = PendingIntent.getBroadcast(context, 1, SportIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Action SportAction = new NotificationCompat.Action.Builder(R.drawable.ic_rowing, context.getString(R.string.sport), sportPendingIntent).build();
 
             Log.w(TAG, c.toString());
@@ -105,13 +105,12 @@ public class Task {
     }
 
     private void createNotificationChannel() {
-        // Créer le NotificationChannel, seulement pour API 26+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "Notification channel name";
             int importance = NotificationManager.IMPORTANCE_DEFAULT;
             NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
             channel.setDescription("Notification channel description");
-            // Enregister le canal sur le système : attention de ne plus rien modifier après
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             Objects.requireNonNull(notificationManager).createNotificationChannel(channel);
         }

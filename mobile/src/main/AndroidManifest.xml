@@ -26,8 +26,12 @@
         <activity android:name=".DisplayTaskActivity" /> <!-- Declare  Alarm Broadcast receiver here -->
         <receiver android:name=".AlarmReceiver" />
         <receiver android:name=".SnoozeReceiver" />
+        <receiver android:name=".SportReceiver"/>
 
         <service android:name=".SnoozeService" />
+        <service android:name=".SportService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>
